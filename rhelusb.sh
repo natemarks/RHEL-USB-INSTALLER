@@ -61,7 +61,7 @@ then
     exit
 fi
 
-if [ $1 != "build" ] ||  [ $1 != "create" ] || [ $1 != "burn" ] || [ $1 != "copy"];
+if [ $1 != "build" ] &&  [ $1 != "create" ] && [ $1 != "burn" ] && [ $1 != "copy"];
 then
     usage
     exit
