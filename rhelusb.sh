@@ -58,11 +58,13 @@ function copyimagestoext4 {
 if [ $# != 1 ];
 then
     usage
+    exit
 fi
 
 if [[ $1 != "build"] -o [ $1 != "create"] -o [ $1 != "burn" ] -o [ $1 != "copy"]];
 then
     usage
+    exit
 fi
 
 case $1 in
