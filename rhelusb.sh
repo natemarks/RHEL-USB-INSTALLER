@@ -77,4 +77,6 @@ case $1 in
         writeisotousb ;;
     copy )
         copyimagestoext4 ;;
+    usage )
+        usage ;;
 esac
