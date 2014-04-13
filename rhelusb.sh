@@ -1,10 +1,28 @@
 #!/bin/sh
+# requires the packages  mkisofs and syslinux
+# change the ISOCD to the location of a valid iso file
 ISOCD="/var/www/html/centos/custom/CentOS-6.5-x86_64-minimal.iso"
 ISOCDMOUNT="/tmp/rhelboot"
 ISOMODPATH="/tmp/rhelmodboot"
-USBDEVICE="/dev/sdb"
+# replace /dev/XXXXXXXXXX with the correct device for the usb stick.  if you're not sure what it is, 
+# run tail -f /var/log/dmesg then connect the usb device. you'll see the system assign a device
+# name to it.  On my system its sdb
+# USBDEVICE="/dev/sdb"
+USBDEVICE="/dev/XXXXXXXXXX"
 USBMOUNT="/tmp/rhelusb"
 ISOIMGMOUNT="/tmp/rheliso"
+
+function usage {
+        echo "$0 : Prints out the usage of the script"
+        echo "$0 build : creates some directories containing (among other things)  the isolinux.cfg file"
+        echo "    that must be modified to customize the boot menu for the USB. these directories are used"
+        echo "    by the create process to create the /tmp/bootmod.iso"
+        echo "$0 create : uses modified isolinux stuff to create the /tmp/bootmod.iso and runs isohybrid"
+        echo "$0 burn : burns the bootmod.iso to the USB creating partition 1.  MAKE SURE TO DELETE ALL "
+        echo "    PARTITIONS BEFORE running $0 burn.  After you run it, create a second partiton on the USB"
+        echo "    formatted ext4.  that will contain the repo data and the kickstart files"
+        echo "$0 copy : this step copies the image files and creates an empty kickstart file"
+        }
 
 function createmoddir {
         mkdir $ISOCDMOUNT $ISOMODPATH
@@ -36,8 +54,17 @@ function copyimagestoext4 {
         then
             echo "#EMPTY KICKSTART" >> $USBMOUNT/workstation/ks.cfg
         fi
-#        umount $USBMOUNT
 }
+if [ $# != 1 ];
+then
+    usage
+fi
+
+if [[ $1 != "build"] -o [ $1 != "create"] -o [ $1 != "burn" ] -o [ $1 != "copy"]];
+then
+    usage
+fi
+
 case $1 in
     build )
         createmoddir ;;
