@@ -54,6 +54,7 @@ function copyimagestoext4 {
         then
             echo "#EMPTY KICKSTART" >> $USBMOUNT/workstation/ks.cfg
         fi
+        cp $ISOCD $USBMOUNT
 }
 if [ $# != 1 ];
 then
