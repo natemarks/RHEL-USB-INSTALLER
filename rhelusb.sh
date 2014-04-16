@@ -36,6 +36,7 @@ function createiso {
         isohybrid /tmp/bootmod.iso
     }
 function writeisotousb {
+        isohybrid /tmp/bootmod.iso
         dd if=/tmp/bootmod.iso of=$USBDEVICE
     }
 function copyimagestoext4 {
