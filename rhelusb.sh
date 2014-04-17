@@ -40,6 +40,7 @@ function writeisotousb {
         dd if=/tmp/bootmod.iso of=$USBDEVICE
     }
 function copyimagestoext4 {
+        umount $ISOCDMOUNT
         mkdir -p $ISOIMGMOUNT $USBMOUNT
         mount $USBDEVICE2 $USBMOUNT
         mount -o loop $ISOCD $ISOIMGMOUNT
