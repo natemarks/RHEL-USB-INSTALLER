@@ -42,7 +42,7 @@ function writeisotousb {
 function copyimagestoext4 {
         umount $ISOCDMOUNT
         mkdir -p $ISOIMGMOUNT $USBMOUNT
-        mount $USBDEVICE2 $USBMOUNT
+        mount $USBDEVICE"2" $USBMOUNT
         mount -o loop $ISOCD $ISOIMGMOUNT
         mkdir -p $USBMOUNT/images
         cp $ISOIMGMOUNT/images/install.img $USBMOUNT/images
